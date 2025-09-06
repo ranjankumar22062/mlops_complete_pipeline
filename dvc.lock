@@ -55,3 +55,40 @@ stages:
       md5: b4e155969912d596c81e6df87ce76e71.dir
       size: 1180385
       nfiles: 2
+  model_training:
+    cmd: python src/model_training.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: b4e155969912d596c81e6df87ce76e71.dir
+      size: 1180385
+      nfiles: 2
+    - path: src/model_training.py
+      hash: md5
+      md5: aee9ab4c312c46938ae80503e3054092
+      size: 4423
+    params:
+      params.yaml:
+        model_training.n_estimators: 22
+        model_training.random_state: 2
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: c868279a8da51b3ba009da3eb8e9cae3
+      size: 882725
+  model_evaluation:
+    cmd: python src/model_evaluation.py
+    deps:
+    - path: models/model.pkl
+      hash: md5
+      md5: c868279a8da51b3ba009da3eb8e9cae3
+      size: 882725
+    - path: src/model_evaluation.py
+      hash: md5
+      md5: e76593a4cc3ad6b0f2de8ed73f7b9468
+      size: 4266
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: 10f651b1db4d31fd959b7b3c0f7b84b5
+      size: 145
